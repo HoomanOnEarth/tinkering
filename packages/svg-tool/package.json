@@ -1,0 +1,22 @@
+{
+  "name": "svg-tool",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "types": "index.ts",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fabric": "^4.5.7",
+    "@types/uuid": "^8.3.4",
+    "config": "workspace:*",
+    "fabric": "^5.2.1",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.3"
+  },
+  "dependencies": {
+    "belts": "workspace:*",
+    "uuid": "^8.3.2"
+  },
+  "peerDependencies": {
+    "fabric": "^5.2.1"
+  }
+}

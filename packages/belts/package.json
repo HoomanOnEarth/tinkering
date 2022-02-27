@@ -1,0 +1,12 @@
+{
+	"name": "belts",
+	"version": "0.0.0",
+	"main": "./index.ts",
+	"types": "./index.ts",
+	"license": "MIT",
+	"devDependencies": {
+		"config": "workspace:*",
+		"tsconfig": "workspace:*",
+		"typescript": "^4.5.3"
+	}
+}
