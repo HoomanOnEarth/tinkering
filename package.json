@@ -1,0 +1,15 @@
+{
+	"name": "personal",
+	"engines": {
+		"node": ">=12",
+		"pnpm": ">=3"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^5.13.0",
+		"@typescript-eslint/parser": "^5.13.0",
+		"esbuild": "^0.14.25",
+		"eslint": "^8.10.0",
+		"parcel": "^2.3.2",
+		"typescript": "^4.6.2"
+	}
+}
