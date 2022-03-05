@@ -48,8 +48,7 @@ Giúp cho ghế có khả năng vận hành với nhiều đối tượng khác 
 
 Độ bền vật liệu quyết định thời gian sử dụng của sản phẩm.
 
--- Vì sao chọn Herman Miller
-
+#### Vì sao chọn Herman Miller
 1. Lâu năm trong ngành, nhiều nghiên cứu và báo cáo.
 2. Cho phép tuỳ chỉnh nhiều và sâu
 3. Độ bền vật liệu tốt
