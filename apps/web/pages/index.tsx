@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import styles from "../styles/Home.module.css";
-import { getNotes, Note } from "notes";
+import { getNotes, Note } from "get-notes";
 
 interface HomeProps {
 	notes: Note[];

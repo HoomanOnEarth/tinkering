@@ -8306,8 +8306,8 @@ var require_gray_matter = __commonJS({
 });
 
 // index.ts
-var notes_exports = {};
-__export(notes_exports, {
+var get_notes_exports = {};
+__export(get_notes_exports, {
   getNotes: () => getNotes
 });
 var import_fs = __toESM(require("fs"));
@@ -8330,7 +8330,7 @@ function getNotes(notesDir) {
   });
   return notes;
 }
-module.exports = __toCommonJS(notes_exports);
+module.exports = __toCommonJS(get_notes_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   getNotes
