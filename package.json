@@ -1,7 +1,7 @@
 {
 	"name": "personal",
 	"engines": {
-		"node": ">=12",
+		"node": ">=14",
 		"pnpm": ">=3"
 	},
 	"devDependencies": {
