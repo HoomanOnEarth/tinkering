@@ -39,9 +39,6 @@ importers:
       eslint-config-next: 12.1.0_91b99ef72d19920d7e6dded71447bf77
       typescript: 4.6.2
 
-  packages/hooks:
-    specifiers: {}
-
   packages/notes:
     specifiers:
       gray-matter: ^4.0.3
