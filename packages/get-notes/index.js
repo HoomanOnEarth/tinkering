@@ -8314,21 +8314,31 @@ var import_fs = __toESM(require("fs"));
 var import_path = __toESM(require("path"));
 var import_markdown_it = __toESM(require_markdown_it());
 var import_gray_matter = __toESM(require_gray_matter());
-function getNotes(notesDir) {
+function sortByCreateAt(notes, orderBy) {
+  return notes.sort((current, next) => {
+    const currentCreatedAt = new Date(current.createdAt).getTime();
+    const nextCreatedAt = new Date(next.createdAt).getTime();
+    return orderBy === "NEWEST FIRST" ? nextCreatedAt - currentCreatedAt : currentCreatedAt - nextCreatedAt;
+  });
+}
+function getNotes(notesDir, orderBy = "NEWEST FIRST") {
   const postsDirectory = import_path.default.join(process.cwd(), notesDir);
   const filenames = import_fs.default.readdirSync(postsDirectory);
   const markdownFiles = filenames.filter((name) => name.endsWith(".md"));
   const notes = markdownFiles.map((filename) => {
     const filePath = import_path.default.join(postsDirectory, filename);
     const fileContents = import_fs.default.readFileSync(filePath, "utf8");
-    const meta = (0, import_gray_matter.default)(fileContents);
+    const stats = import_fs.default.statSync(filePath);
+    const frontmatter = (0, import_gray_matter.default)(fileContents);
     return {
       filename,
-      title: meta.data.title,
-      content: new import_markdown_it.default().render(meta.content)
+      title: frontmatter.data.title,
+      createdAt: stats.ctime.toDateString(),
+      updatedAt: stats.mtime.toDateString(),
+      content: new import_markdown_it.default().render(frontmatter.content)
     };
   });
-  return notes;
+  return sortByCreateAt(notes, orderBy);
 }
 module.exports = __toCommonJS(get_notes_exports);
 // Annotate the CommonJS export names for ESM import in node:

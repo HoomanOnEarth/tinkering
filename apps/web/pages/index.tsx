@@ -6,15 +6,21 @@ interface HomeProps {
 	notes: Note[];
 }
 
-const Home: NextPage<HomeProps> = ({ notes }) => {
+const Home: NextPage<HomeProps> = ({ notes = [] }) => {
 	return (
 		<div className={styles.container}>
-			{notes.map((note: Note) => (
-				<div key={note.filename}>
-					<h1>{note.title}</h1>
-					<div dangerouslySetInnerHTML={{ __html: note.content }}></div>
-				</div>
-			))}
+			<div className={styles.notes}>
+				{notes.map((note: Note) => (
+					<div key={note.filename}>
+						<h5 className={styles.note_meta}>{note.updatedAt}</h5>
+						<h1 className={styles.note_title}>{note.title}</h1>
+						<div
+							className={styles.note_content}
+							dangerouslySetInnerHTML={{ __html: note.content }}
+						/>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };

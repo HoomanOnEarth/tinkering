@@ -1,5 +1,23 @@
 .container {
-	padding: 0 2rem;
+	padding: 2rem;
 	max-width: 80ch;
 	margin: 0 auto;
+}
+
+.notes {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.note_title {
+	color: #222;
+	margin-top: 0;
+	margin-bottom: 2rem;
+}
+
+.note_meta {
+	color: #222;
+	margin-top: 0;
+	margin-bottom: 0.75rem;
 }
