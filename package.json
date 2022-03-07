@@ -18,5 +18,8 @@
     "tabWidth": 2,
     "trailingComma": "all",
     "useTabs": false
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
   }
 }
