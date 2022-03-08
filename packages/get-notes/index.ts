@@ -9,6 +9,7 @@ function sortByCreateAt(notes: Note[], orderBy: OrderBy): Note[] {
   return notes.sort((current, next) => {
     const currentCreatedAt = new Date(current.createdAt).getTime()
     const nextCreatedAt = new Date(next.createdAt).getTime()
+
     return orderBy === 'NEWEST FIRST'
       ? nextCreatedAt - currentCreatedAt
       : currentCreatedAt - nextCreatedAt
@@ -28,8 +29,8 @@ export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
     return {
       filename,
       title: frontmatter.data.title,
-      createdAt: stats.ctime.toDateString(),
-      updatedAt: stats.mtime.toDateString(),
+      createdAt: stats.ctime.toISOString(),
+      updatedAt: stats.mtime.toISOString(),
       content: new MarkdownIt().render(frontmatter.content),
     }
   })

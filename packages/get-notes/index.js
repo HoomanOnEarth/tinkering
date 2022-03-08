@@ -8333,8 +8333,8 @@ function getNotes(notesDir, orderBy = "NEWEST FIRST") {
     return {
       filename,
       title: frontmatter.data.title,
-      createdAt: stats.ctime.toDateString(),
-      updatedAt: stats.mtime.toDateString(),
+      createdAt: stats.ctime.toISOString(),
+      updatedAt: stats.mtime.toISOString(),
       content: new import_markdown_it.default().render(frontmatter.content)
     };
   });
