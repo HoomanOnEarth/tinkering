@@ -14,3 +14,12 @@ a {
 * {
   box-sizing: border-box;
 }
+
+::selection {
+  background: gold;
+}
+
+/* Code for Firefox */
+::-moz-selection {
+  background: gold;
+}
