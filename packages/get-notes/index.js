@@ -8361,7 +8361,6 @@ function getNotes(notesDir, orderBy = "NEWEST FIRST") {
     saveMyStats(localStats);
   }
   const myStats = import_fs2.default.readFileSync(".my-stats.json", "utf8");
-  console.log(myStats);
   return sortByCreateAt(addStatsToNotes(notes, JSON.parse(myStats)), orderBy);
 }
 function addStatsToNotes(notes, stats) {
@@ -8372,9 +8371,9 @@ function addStatsToNotes(notes, stats) {
   }));
 }
 function saveMyStats(stats) {
-  import_fs2.default.writeFile(".my-stats.json", JSON.stringify(stats), {}, () => console.log("File stats saved!"));
+  import_fs2.default.writeFileSync(".my-stats.json", JSON.stringify(stats));
+  console.log(".my-stats.json saved!");
 }
-getNotes("_notes");
 module.exports = __toCommonJS(get_notes_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
