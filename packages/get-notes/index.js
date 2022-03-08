@@ -8192,7 +8192,7 @@ var require_parse2 = __commonJS({
 var require_gray_matter = __commonJS({
   "../../node_modules/.pnpm/gray-matter@4.0.3/node_modules/gray-matter/index.js"(exports2, module2) {
     "use strict";
-    var fs2 = require("fs");
+    var fs3 = require("fs");
     var sections = require_section_matter();
     var defaults = require_defaults();
     var stringify = require_stringify();
@@ -8277,7 +8277,7 @@ var require_gray_matter = __commonJS({
       return stringify(file, data, options2);
     };
     matter2.read = function(filepath, options2) {
-      const str2 = fs2.readFileSync(filepath, "utf8");
+      const str2 = fs3.readFileSync(filepath, "utf8");
       const file = matter2(str2, options2);
       file.path = filepath;
       return file;
@@ -8310,10 +8310,26 @@ var get_notes_exports = {};
 __export(get_notes_exports, {
   getNotes: () => getNotes
 });
-var import_fs = __toESM(require("fs"));
-var import_path = __toESM(require("path"));
+var import_fs2 = __toESM(require("fs"));
+var import_path2 = __toESM(require("path"));
 var import_markdown_it = __toESM(require_markdown_it());
 var import_gray_matter = __toESM(require_gray_matter());
+
+// ../utils/index.ts
+var import_path = __toESM(require("path"));
+var import_fs = __toESM(require("fs"));
+var import_os = __toESM(require("os"));
+function isMyLocalMacbook() {
+  return import_os.default.hostname() === "Spark.local" && import_os.default.userInfo().username === "alex";
+}
+function getStats(postsDirectory) {
+  return (filename) => import_fs.default.statSync(import_path.default.join(postsDirectory, filename));
+}
+function isMarkdown(filename) {
+  return filename.endsWith(".md");
+}
+
+// index.ts
 function sortByCreateAt(notes, orderBy) {
   return notes.sort((current, next) => {
     const currentCreatedAt = new Date(current.createdAt).getTime();
@@ -8322,24 +8338,43 @@ function sortByCreateAt(notes, orderBy) {
   });
 }
 function getNotes(notesDir, orderBy = "NEWEST FIRST") {
-  const postsDirectory = import_path.default.join(process.cwd(), notesDir);
-  const filenames = import_fs.default.readdirSync(postsDirectory);
-  const markdownFiles = filenames.filter((name) => name.endsWith(".md"));
+  const postsDirectory = import_path2.default.join(process.cwd(), notesDir);
+  const markdownFiles = import_fs2.default.readdirSync(postsDirectory).filter(isMarkdown);
   const notes = markdownFiles.map((filename) => {
-    const filePath = import_path.default.join(postsDirectory, filename);
-    const fileContents = import_fs.default.readFileSync(filePath, "utf8");
-    const stats = import_fs.default.statSync(filePath);
+    const filePath = import_path2.default.join(postsDirectory, filename);
+    const fileContents = import_fs2.default.readFileSync(filePath, "utf8");
     const frontmatter = (0, import_gray_matter.default)(fileContents);
     return {
       filename,
       title: frontmatter.data.title,
-      createdAt: stats.ctime.toISOString(),
-      updatedAt: stats.mtime.toISOString(),
       content: new import_markdown_it.default().render(frontmatter.content)
     };
   });
-  return sortByCreateAt(notes, orderBy);
+  const stats = markdownFiles.map(getStats(postsDirectory));
+  const filenames = notes.map((note) => note.filename);
+  if (isMyLocalMacbook()) {
+    const localStats = stats.map(({ ctime, mtime }, index) => ({
+      filename: filenames[index],
+      createdAt: ctime.toISOString(),
+      updatedAt: mtime.toISOString()
+    }));
+    saveMyStats(localStats);
+  }
+  const myStats = import_fs2.default.readFileSync(".my-stats.json", "utf8");
+  console.log(myStats);
+  return sortByCreateAt(addStatsToNotes(notes, JSON.parse(myStats)), orderBy);
 }
+function addStatsToNotes(notes, stats) {
+  return notes.map((note, index) => ({
+    ...note,
+    createdAt: stats[index].createdAt,
+    updatedAt: stats[index].updatedAt
+  }));
+}
+function saveMyStats(stats) {
+  import_fs2.default.writeFile(".my-stats.json", JSON.stringify(stats), {}, () => console.log("File stats saved!"));
+}
+getNotes("_notes");
 module.exports = __toCommonJS(get_notes_exports);
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
