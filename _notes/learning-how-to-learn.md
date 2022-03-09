@@ -21,4 +21,4 @@ Vậy nếu đưa được cơ thể vào trạng thái không nghĩ gì thì d�
 
 Nghiên cứu cũng chỉ ra sau khi ngủ con người có thể giải quyết vấn đề đang tồn đọng tốt hơn.
 
-Tham khảo thêm tại [Coursera](https://www.coursera.org/learn/learning-how-to-learn/)
+Tham khảo thêm tại [Learning how to learn - Coursera](https://www.coursera.org/learn/learning-how-to-learn/)
