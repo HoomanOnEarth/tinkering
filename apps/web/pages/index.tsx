@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { getNotes, Note } from 'get-notes'
 import { Navigator } from '../components/Navigator'
@@ -32,16 +33,34 @@ const Home: NextPage<HomeProps> = ({ notes = [] }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.notes}>
+      <Head>
+        <title>{note.title}</title>
+        <meta name="author" content="@HoomanOnEarth" />
+        <meta name="copyright" content="@HoomanOnEarth" />
+        <meta name="robots" content="index, follow" />
+        <meta name="rating" content="general" />
+
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={note.title} />
+        <meta property="og:url" content="https://jqwerty.com" />
+
+        <meta property="article:published_time" content={note.createdAt} />
+        <meta property="article:modified_time" content={note.updatedAt} />
+        <meta property="article:author" content="@HoomanOnEarth" />
+      </Head>
+
+      <article className={styles.notes}>
         <div id="top" key={note.filename}>
-          <h5 className={styles.note_meta}>{localeDate(note.createdAt)}</h5>
+          <h5 className={styles.note_meta}>
+            <time>{localeDate(note.createdAt)}</time>
+          </h5>
           <h1 className={styles.note_title}>{note.title}</h1>
           <div
             className={styles.note_content}
             dangerouslySetInnerHTML={{ __html: note.content }}
           />
         </div>
-      </div>
+      </article>
 
       <Navigator
         total={total}
