@@ -1,77 +1,60 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { getNotes, Note } from 'get-notes'
-import { Navigator } from '../components/Navigator'
-import { useEffect, useState } from 'react'
+import type { NextPage } from 'next'
+import { getNotes, Note } from '@me/get-notes'
+import { localeDate } from '@me/utils/date'
+import { useScrollToTop, useCursor } from '../hooks'
+import { ArticleHeadMetaTags } from '../components/ArticleMetaTags'
 
 interface HomeProps {
   notes: Note[]
 }
 
-function localeDate(dateISO: string) {
-  return new Date(dateISO).toDateString()
-}
-
 const Home: NextPage<HomeProps> = ({ notes = [] }) => {
   const total = notes.length
-  const [current, setCurrent] = useState<number>(0)
+  const {
+    index: current,
+    isHead: isLatest,
+    isTail: isOldest,
+    currentLabel,
+    goNext,
+    goPrevious,
+  } = useCursor(total)
+
+  useScrollToTop('top', current)
+
   const note = notes[current]
+  const metaLabel = isLatest ? 'Bài mới nhất' : `Bài ${currentLabel}`
 
-  useEffect(() => {
-    const { offsetTop } = document.getElementById('top')
-    window.scrollTo({ top: offsetTop - 24, behavior: 'smooth' })
-  }, [current])
-
-  function handleGoPrev() {
-    if (current > 0) setCurrent(current - 1)
-  }
-
-  function handleGoNext() {
-    if (current < total) setCurrent(current + 1)
-  }
+  const rightButtonLabel = isLatest ? 'Đọc từ đầu?' : 'Đọc bài kế tiếp'
+  const leftButtonLabel = isOldest ? 'Đọc bài mới nhất?' : 'Đọc bài trước'
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>{note.title}</title>
-        <meta name="author" content="@HoomanOnEarth" />
-        <meta name="copyright" content="@HoomanOnEarth" />
-        <meta name="robots" content="index, follow" />
-        <meta name="rating" content="general" />
-
-        <meta property="og:type" content="article" />
-        <meta property="og:title" content={note.title} />
-        <meta property="og:url" content="https://jqwerty.com" />
-
-        <meta property="article:published_time" content={note.createdAt} />
-        <meta property="article:modified_time" content={note.updatedAt} />
-        <meta property="article:author" content="@HoomanOnEarth" />
-      </Head>
-
-      <article className={styles.notes}>
-        <div id="top" key={note.filename}>
-          <h5 className={styles.note_meta}>
-            <time>{localeDate(note.createdAt)}</time>
-          </h5>
-          <h1 className={styles.note_title}>{note.title}</h1>
-          <div
-            className={styles.note_content}
-            dangerouslySetInnerHTML={{ __html: note.content }}
-          />
-        </div>
-      </article>
-
-      <Navigator
-        total={total}
-        current={current}
-        latestLabel="Bài mới nhất rồi"
-        nextLabel="Đọc bài cũ hơn"
-        prevLabel="Quay lại"
-        oldestLabel="Hết rồi"
-        goPrev={handleGoPrev}
-        goNext={handleGoNext}
+      <ArticleHeadMetaTags
+        title={note.title}
+        updatedAt={note.updatedAt}
+        createdAt={note.createdAt}
       />
+
+      <div id="top" className={styles.meta}>
+        <em>{metaLabel}</em>
+        <time>{localeDate(note.createdAt)}</time>
+      </div>
+
+      <div className={styles.note}>
+        <h1 className={styles.title}>{note.title}</h1>
+        <article
+          className={styles.content}
+          dangerouslySetInnerHTML={{ __html: note.content }}
+        />
+      </div>
+
+      <div className={styles.bar}>
+        <div className={styles.controls}>
+          <button onClick={() => goPrevious()}>{leftButtonLabel}</button>
+          <button onClick={() => goNext()}>{rightButtonLabel}</button>
+        </div>
+      </div>
     </div>
   )
 }
