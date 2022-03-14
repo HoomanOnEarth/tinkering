@@ -8322,8 +8322,15 @@ var import_os = __toESM(require("os"));
 function isMyLocalMacbook() {
   return import_os.default.hostname() === "Spark.local" && import_os.default.userInfo().username === "alex";
 }
-function getStats(postsDirectory) {
-  return (filename) => import_fs.default.statSync(import_path.default.join(postsDirectory, filename));
+function getStats(directory) {
+  return (filename) => import_fs.default.statSync(import_path.default.join(directory, filename));
+}
+function addStatsToNotes(notes, stats) {
+  return notes.map((note, index) => ({
+    ...note,
+    createdAt: stats[index].createdAt,
+    updatedAt: stats[index].updatedAt
+  }));
 }
 function isMarkdown(filename) {
   return filename.endsWith(".md");
@@ -8338,10 +8345,10 @@ function sortByCreateAt(notes, orderBy) {
   });
 }
 function getNotes(notesDir, orderBy = "NEWEST FIRST") {
-  const postsDirectory = import_path2.default.join(process.cwd(), notesDir);
-  const markdownFiles = import_fs2.default.readdirSync(postsDirectory).filter(isMarkdown);
+  const noteDirectory = import_path2.default.join(process.cwd(), notesDir);
+  const markdownFiles = import_fs2.default.readdirSync(noteDirectory).filter(isMarkdown);
   const notes = markdownFiles.map((filename) => {
-    const filePath = import_path2.default.join(postsDirectory, filename);
+    const filePath = import_path2.default.join(noteDirectory, filename);
     const fileContents = import_fs2.default.readFileSync(filePath, "utf8");
     const frontmatter = (0, import_gray_matter.default)(fileContents);
     return {
@@ -8350,29 +8357,13 @@ function getNotes(notesDir, orderBy = "NEWEST FIRST") {
       content: new import_markdown_it.default().render(frontmatter.content)
     };
   });
-  const stats = markdownFiles.map(getStats(postsDirectory));
-  const filenames = notes.map((note) => note.filename);
-  if (isMyLocalMacbook()) {
-    const localStats = stats.map(({ ctime, mtime }, index) => ({
-      filename: filenames[index],
-      createdAt: ctime.toISOString(),
-      updatedAt: mtime.toISOString()
-    }));
-    saveMyStats(localStats);
-  }
-  const myStats = import_fs2.default.readFileSync(".my-stats.json", "utf8");
-  return sortByCreateAt(addStatsToNotes(notes, JSON.parse(myStats)), orderBy);
-}
-function addStatsToNotes(notes, stats) {
-  return notes.map((note, index) => ({
-    ...note,
-    createdAt: stats[index].createdAt,
-    updatedAt: stats[index].updatedAt
-  }));
-}
-function saveMyStats(stats) {
-  import_fs2.default.writeFileSync(".my-stats.json", JSON.stringify(stats));
-  console.log(".my-stats.json saved!");
+  const getNoteStats = getStats(noteDirectory);
+  const stats = isMyLocalMacbook() ? markdownFiles.map(getNoteStats).map(({ ctime, mtime }, index) => ({
+    filename: markdownFiles[index],
+    createdAt: ctime.toISOString(),
+    updatedAt: mtime.toISOString()
+  })) : JSON.parse(import_fs2.default.readFileSync(".note-stats.json", "utf8"));
+  return sortByCreateAt(addStatsToNotes(notes, stats), orderBy);
 }
 module.exports = __toCommonJS(get_notes_exports);
 // Annotate the CommonJS export names for ESM import in node:

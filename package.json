@@ -4,6 +4,9 @@
     "node": ">=14",
     "pnpm": ">=3"
   },
+  "scripts": {
+    "get-stats": "ts-node get-stats.ts"
+  },
   "prettier": {
     "arrowParens": "avoid",
     "bracketSpacing": true,
