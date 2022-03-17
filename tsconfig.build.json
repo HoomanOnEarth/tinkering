@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "isolatedModules": true,  // https://github.com/microsoft/TypeScript/wiki/Performance#isolated-file-emit
+    "skipLibCheck": true,     // https://github.com/microsoft/TypeScript/wiki/Performance#skipping-dts-checking
+    "types": [],              // https://github.com/microsoft/TypeScript/wiki/Performance#controlling-types-inclusion
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "commonjs",
+    "noEmit": false,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "target": "ES2016",
+  },
+  "exclude": ["node_modules", "dist"]
+}

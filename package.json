@@ -5,7 +5,8 @@
     "pnpm": ">=3"
   },
   "scripts": {
-    "get-stats": "ts-node get-stats.ts"
+    "get-stats": "ts-node get-stats.ts",
+    "build": "pnpm run build -r"
   },
   "prettier": {
     "arrowParens": "avoid",

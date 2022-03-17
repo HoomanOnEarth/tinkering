@@ -3,8 +3,9 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+    "clean": "rm -rf dist",
 		"build": "next build",
+		"dev": "next dev",
 		"start": "next start",
 		"lint": "next lint"
 	},

@@ -2,13 +2,39 @@ import fs from 'fs'
 import path from 'path'
 import MarkdownIt from 'markdown-it'
 import matter from 'gray-matter'
-import type { Note } from '@me/utils'
-import { isMyLocalMacbook, isMarkdown, getStats, addStatsToNotes } from '@me/utils'
+import { isMyLocalMacbook, isMarkdown, getStats } from '@me/utils'
 
 type OrderBy = 'NEWEST FIRST' | 'OLDEST FIRST'
 
+export type NoteStats = {
+  createdAt: string
+  updatedAt: string
+}
+
+export type Note = {
+  filename: string
+  title: string
+  content: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export function addStatsToNotes(notes: Note[], stats: NoteStats[]) {
+  return notes.map((note, index) => ({
+    ...note,
+    createdAt: stats[index].createdAt,
+    updatedAt: stats[index].updatedAt,
+  }))
+}
+
+export function saveStats(name: string, stats: NoteStats[]) {
+  fs.writeFileSync(name, JSON.stringify(stats))
+  console.log('%s saved!', name)
+}
+
 function sortByCreateAt(notes: Note[], orderBy: OrderBy): Note[] {
   return notes.sort((current, next) => {
+    if (!current.createdAt || !next.createdAt) return -1
     const currentCreatedAt = new Date(current.createdAt).getTime()
     const nextCreatedAt = new Date(next.createdAt).getTime()
     return orderBy === 'NEWEST FIRST'
@@ -16,8 +42,6 @@ function sortByCreateAt(notes: Note[], orderBy: OrderBy): Note[] {
       : currentCreatedAt - nextCreatedAt
   })
 }
-
-export { Note }
 
 export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
   const noteDirectory = path.join(process.cwd(), notesDir)
@@ -33,7 +57,7 @@ export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
     return {
       filename,
       title: frontmatter.data.title,
-      content: new MarkdownIt().render(frontmatter.content),
+      content: new MarkdownIt().render(frontmatter.content)
     }
   })
 

@@ -1,6 +1,14 @@
 {
-	"compilerOptions": {
-		"esModuleInterop": true,
-		"typeRoots": ["./types", "./node_modules/@types"]
-	}
+  "extends": "./tsconfig.build.json",
+
+  "compilerOptions": {
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@me/components/*": ["packages/components/src/*"],
+      "@me/hooks/*": ["packages/hooks/src/*"],
+      "@me/utils/*": ["packages/utils/src/*"],
+      "@me/*": ["packages/*/src"]
+    }
+  }
 }
