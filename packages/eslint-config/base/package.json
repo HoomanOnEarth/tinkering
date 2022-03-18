@@ -1,0 +1,31 @@
+{
+  "name": "@me/eslint-config-base",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "HoomanOnEarth's ESLint base config",
+  "keywords": [
+    "eslint",
+    "config"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "eslint-config-airbnb-base": "^15.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0"
+  },
+  "peerDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.6.0"
+  }
+}

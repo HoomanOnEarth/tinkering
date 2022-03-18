@@ -1,0 +1,20 @@
+{
+  "name": "@me/eslint-config-tsx",
+  "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "HoomanOnEarth's ESLint config for typescript react components",
+  "keywords": [
+    "eslint",
+    "config",
+    "typescript",
+    "react"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "@me/eslint-config-react": "workspace:^0.0.1",
+    "@me/eslint-config-typescript": "workspace:^0.0.1"
+  }
+}

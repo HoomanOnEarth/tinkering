@@ -6,8 +6,7 @@
     "clean": "rm -rf dist",
     "build": "next build",
     "dev": "next dev",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "@me/get-notes": "*",

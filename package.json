@@ -6,26 +6,24 @@
   },
   "scripts": {
     "get-stats": "ts-node scripts/get-stats",
-    "build": "pnpm run build -r",
+    "build": "turbo run build",
+    "build:force": "turbo run build --force",
+    "test": "turbo run test",
     "lint": "eslint --ignore-path .gitignore --ext ts,tsx .",
     "prettier": "prettier --ignore-path .gitignore --write '**/*/*.{ts,tsx,css,json,html}'"
   },
+  "packageManager": "pnpm@6.32.3",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "prettier": {
-    "arrowParens": "avoid",
-    "bracketSpacing": true,
-    "endOfLine": "lf",
-    "bracketSameLine": false,
-    "jsxSingleQuote": false,
-    "printWidth": 80,
-    "proseWrap": "preserve",
-    "quoteProps": "as-needed",
     "semi": false,
-    "singleQuote": true,
-    "tabWidth": 2,
-    "trailingComma": "all",
-    "useTabs": false
+    "singleQuote": true
   },
   "devDependencies": {
-    "prettier": "^2.5.1"
+    "@me/eslint-config-tsx": "workspace:^0.0.1",
+    "prettier": "^2.5.1",
+    "turbo": "^1.1.6"
   }
 }
