@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-import { isMarkdown, getStats } from 'packages/utils'
-import { saveStats } from 'packages/get-notes'
+import { isMarkdown } from '../packages/utils'
+import { getStats, saveStats } from '../packages/get-notes'
 
 // metadata about time created, time updated
 const noteDirectory = '_notes'

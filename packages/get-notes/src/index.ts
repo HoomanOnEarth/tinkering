@@ -2,46 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import MarkdownIt from 'markdown-it'
 import matter from 'gray-matter'
-import { isMyLocalMacbook, isMarkdown, getStats } from '@me/utils'
-
-type OrderBy = 'NEWEST FIRST' | 'OLDEST FIRST'
-
-export type NoteStats = {
-  createdAt: string
-  updatedAt: string
-}
-
-export type Note = {
-  filename: string
-  title: string
-  content: string
-  createdAt?: string
-  updatedAt?: string
-}
-
-export function addStatsToNotes(notes: Note[], stats: NoteStats[]) {
-  return notes.map((note, index) => ({
-    ...note,
-    createdAt: stats[index].createdAt,
-    updatedAt: stats[index].updatedAt,
-  }))
-}
-
-export function saveStats(name: string, stats: NoteStats[]) {
-  fs.writeFileSync(name, JSON.stringify(stats))
-  console.log('%s saved!', name)
-}
-
-function sortByCreateAt(notes: Note[], orderBy: OrderBy): Note[] {
-  return notes.sort((current, next) => {
-    if (!current.createdAt || !next.createdAt) return -1
-    const currentCreatedAt = new Date(current.createdAt).getTime()
-    const nextCreatedAt = new Date(next.createdAt).getTime()
-    return orderBy === 'NEWEST FIRST'
-      ? nextCreatedAt - currentCreatedAt
-      : currentCreatedAt - nextCreatedAt
-  })
-}
+import { isMyLocalMacbook, isMarkdown } from '@me/utils'
 
 export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
   const noteDirectory = path.join(process.cwd(), notesDir)
@@ -74,3 +35,45 @@ export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
   return sortByCreateAt(addStatsToNotes(notes, stats), orderBy)
 }
 
+type OrderBy = 'NEWEST FIRST' | 'OLDEST FIRST'
+
+export type Note = {
+  filename: string
+  title: string
+  content: string
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type NoteStats = {
+  createdAt: string
+  updatedAt: string
+}
+
+export function getStats(directory: string) {
+  return (filename: string) => fs.statSync(path.join(directory, filename))
+}
+
+export function saveStats(name: string, stats: NoteStats[]) {
+  fs.writeFileSync(name, JSON.stringify(stats))
+  console.log('%s saved!', name)
+}
+
+export function addStatsToNotes(notes: Note[], stats: NoteStats[]) {
+  return notes.map((note, index) => ({
+    ...note,
+    createdAt: stats[index].createdAt,
+    updatedAt: stats[index].updatedAt,
+  }))
+}
+
+function sortByCreateAt(notes: Note[], orderBy: OrderBy): Note[] {
+  return notes.sort((current, next) => {
+    if (!current.createdAt || !next.createdAt) return -1
+    const currentCreatedAt = new Date(current.createdAt).getTime()
+    const nextCreatedAt = new Date(next.createdAt).getTime()
+    return orderBy === 'NEWEST FIRST'
+      ? nextCreatedAt - currentCreatedAt
+      : currentCreatedAt - nextCreatedAt
+  })
+}
