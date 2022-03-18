@@ -68,13 +68,17 @@ export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
 
   // metadata about time created, time updated
   const getNoteStats = getStats(noteDirectory)
+  const noteStatsPath = path.resolve(
+    __dirname,
+    '../../../../../.note-stats.json'
+  )
   const stats = isMyLocalMacbook()
     ? markdownFiles.map(getNoteStats).map(({ ctime, mtime }, index) => ({
         filename: markdownFiles[index],
         createdAt: ctime.toISOString(),
         updatedAt: mtime.toISOString(),
       }))
-    : JSON.parse(fs.readFileSync('.note-stats.json', 'utf8'))
+    : JSON.parse(fs.readFileSync(noteStatsPath, 'utf8'))
 
   return sortByCreateAt(addStatsToNotes(notes, stats), orderBy)
 }
