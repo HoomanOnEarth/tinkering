@@ -6,7 +6,9 @@
   },
   "scripts": {
     "get-stats": "ts-node scripts/get-stats",
-    "build": "pnpm run build -r"
+    "build": "pnpm run build -r",
+    "lint": "eslint --ignore-path .gitignore --ext ts,tsx .",
+    "prettier": "prettier --ignore-path .gitignore --write '**/*/*.{ts,tsx,css,json,html}'"
   },
   "prettier": {
     "arrowParens": "avoid",

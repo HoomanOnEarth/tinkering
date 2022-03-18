@@ -1,5 +1,5 @@
 {
-	"name": "@me/utils",
+  "name": "@me/utils",
   "main": "dist/index",
   "types": "dist/index",
   "scripts": {

@@ -18,19 +18,19 @@ export function getNotes(notesDir: string, orderBy: OrderBy = 'NEWEST FIRST') {
     return {
       filename,
       title: frontmatter.data.title,
-      content: new MarkdownIt().render(frontmatter.content)
+      content: new MarkdownIt().render(frontmatter.content),
     }
   })
 
   // metadata about time created, time updated
   const getNoteStats = getStats(noteDirectory)
   const stats = isMyLocalMacbook()
-  ? markdownFiles.map(getNoteStats).map(({ ctime, mtime }, index) => ({
-      filename: markdownFiles[index],
-      createdAt: ctime.toISOString(),
-      updatedAt: mtime.toISOString(),
-    }))
-  : JSON.parse(fs.readFileSync('.note-stats.json', 'utf8'))
+    ? markdownFiles.map(getNoteStats).map(({ ctime, mtime }, index) => ({
+        filename: markdownFiles[index],
+        createdAt: ctime.toISOString(),
+        updatedAt: mtime.toISOString(),
+      }))
+    : JSON.parse(fs.readFileSync('.note-stats.json', 'utf8'))
 
   return sortByCreateAt(addStatsToNotes(notes, stats), orderBy)
 }
