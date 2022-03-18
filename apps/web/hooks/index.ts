@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-export function useScrollToTop(id: string, trigger: any) {
+export function useScrollToTop(id: string, trigger: string | number) {
   useEffect(() => {
     const { offsetTop } = document.getElementById(id)
     window.scrollTo({ top: offsetTop - 24, behavior: 'smooth' })

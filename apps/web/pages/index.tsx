@@ -45,14 +45,19 @@ const Home: NextPage<HomeProps> = ({ notes = [] }) => {
         <h1 className={styles.title}>{note.title}</h1>
         <article
           className={styles.content}
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: note.content }}
         />
       </div>
 
       <div className={styles.bar}>
         <div className={styles.controls}>
-          <button onClick={() => goPrevious()}>{leftButtonLabel}</button>
-          <button onClick={() => goNext()}>{rightButtonLabel}</button>
+          <button type="button" onClick={() => goPrevious()}>
+            {leftButtonLabel}
+          </button>
+          <button type="button" onClick={() => goNext()}>
+            {rightButtonLabel}
+          </button>
         </div>
       </div>
     </div>

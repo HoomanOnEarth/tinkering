@@ -23,7 +23,7 @@ const maybeCookie = cookieMachine.makeCookie('sunglasses') // Error: I dont know
 function makeCookieMachine(recipes: Recipe[]): CookieMachine {
   return {
     makeCookie(type: string): Cookie | Error {
-      const recipe = recipes.find(recipe => recipe.type === type)
+      const recipe = recipes.find((recipe) => recipe.type === type)
       return recipe
         ? recipe.cook()
         : new Error(`I dont know how to cook: ${type}`)
