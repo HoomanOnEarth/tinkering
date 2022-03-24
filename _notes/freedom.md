@@ -6,17 +6,13 @@ Mỗi sáng, khi thức dậy, nhìn bọn lắm lông ưỡn ẹo, nằm ườn
 
 Cho bọn nó ăn và đi tắm.
 
-Bắt đầu với một ngày mới, vậy luật chơi là gì?
-
 Có thể hôm đó chẳng biết phải làm gì, điều thú vị là chúng ta sẽ lại có một ngày mới để tiếp tục, ngoại trừ một số trường hợp.
 
-Cứ vậy, con người luôn có một ngày mới để làm những thứ mà họ muốn, hoặc không.
-
-Loài người cứ vậy suốt một khoảng thời gian rất dài, và chưa có dấu hiệu dừng lại.
-
-Việc nhìn loài người sinh hoạt và sống mỗi ngày rất thú vị.
-
 Tưởng tượng thử từng ấy con người trong cùng một khoảng khắc, suy nghĩ về N thứ và đưa ra lựa chọn, những lựa chọn đó tạo thành nhiều sự kiện và nó hoàn toàn có liên kết đến nhau.
+
+Nhìn ngắm loài người sinh hoạt mỗi ngày rất thú vị.
+
+Vậy luật chơi là gì?
 
 Mỗi vòng chơi kéo dài 24 giờ.
 
@@ -24,7 +20,7 @@ Người chơi sẽ có thứ cần thiết để làm những thứ họ muốn
 
 Điểm xuất phát sẽ được cung cấp dựa vào kết quả thi đấu của lần 2 người chơi trước.
 
-Người chơi cần đưa ra một hay nhiều lựa chọn có hoặc không mỗi vòng chơi, người chơi còn sống là người đủ tư cách tham gia vào vòng tiếp theo.
+Người chơi cần đưa ra một hay nhiều lựa chọn có hoặc không trong mỗi vòng chơi, người chơi còn sống là người đủ tư cách tham gia vào vòng tiếp theo.
 
 Luật chơi này có thể được thay đổi bởi người chơi.
 
