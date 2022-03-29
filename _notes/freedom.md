@@ -1,5 +1,5 @@
 ---
-title: luật chơi
+title: Luật chơi
 ---
 
 Mỗi sáng, khi thức dậy, nhìn bọn lắm lông ưỡn ẹo, nằm ườn ra giữa nhà.
@@ -47,7 +47,7 @@ Nhưng rõ ràng để có tự do, đánh đổi là điều cần phải làm.
 
 Một vài góc nhìn về tự do của loài người
 
-- [Rules for life](https://www.youtube.com/watch?v=ApC0faRYabI))
+- [Rules for life](https://www.youtube.com/watch?v=ApC0faRYabI)
 - [Mademoiselle](https://www.youtube.com/watch?v=Iq_wSpaEvX8)
 - [Hiếu TV](https://www.youtube.com/watch?v=z-aO1qx6um4)
 - [Freedom to love](https://www.youtube.com/watch?v=p0m5WK-8ycc)
